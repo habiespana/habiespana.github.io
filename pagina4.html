@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estrategia de Internacionalización - Habi España</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --azul-oscuro: #0A2463;
+            --azul-intenso: #1A3E8C;
+            --azul-primario: #3E78B2;
+            --azul-secundario: #6BAED6;
+            --azul-claro: #C5D5EA;
+            --blanco-hueso: #F8F9FA;
+            --blanco-puro: #FFFFFF;
+            --sombra-suave: 0 4px 20px rgba(10, 36, 99, 0.12);
+            --verde-positivo: #2ecc71;
+            --rojo-negativo: #e74c3c;
+        }
+        
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--blanco-hueso);
+            color: #333;
+            line-height: 1.6;
+            padding-top: 80px;
+        }
+        
+        .navbar {
+            background: linear-gradient(135deg, var(--azul-oscuro) 0%, var(--azul-intenso) 100%);
+            box-shadow: var(--sombra-suave);
+        }
+        
+        .seccion {
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .seccion-clara {
+            background: linear-gradient(to bottom, var(--blanco-hueso) 0%, var(--blanco-puro) 100%);
+        }
+        
+        .seccion-azul {
+            background: linear-gradient(15deg, var(--azul-claro) 0%, var(--blanco-puro) 100%);
+        }
+        
+        .seccion-titulo {
+            color: var(--azul-oscuro);
+            position: relative;
+            margin-bottom: 50px;
+            font-weight: 700;
+            display: inline-block;
+        }
+        
+        .seccion-titulo:after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            background: linear-gradient(to right, var(--azul-secundario), var(--azul-primario));
+            bottom: -10px;
+            left: 0;
+            transition: width 0.5s;
+        }
+        
+        .seccion-titulo:hover:after {
+            width: 100%;
+        }
+        
+        .card-estilizada {
+            background: var(--blanco-puro);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            border-top: 4px solid var(--azul-primario);
+            transition: all 0.3s ease;
+        }
+        
+        .card-estilizada:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+        }
+        
+        .table-comparativa {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        
+        .table-comparativa th {
+            background-color: var(--azul-oscuro);
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .table-comparativa td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .table-comparativa tr:nth-child(even) {
+            background-color: var(--azul-claro);
+        }
+        
+        .table-comparativa tr:last-child {
+            background-color: var(--verde-positivo);
+            color: white;
+            font-weight: bold;
+        }
+        
+        .ventaja-espana {
+            background-color: rgba(46, 204, 113, 0.1) !important;
+            border-left: 3px solid var(--verde-positivo);
+        }
+        
+        .ventaja-portugal {
+            background-color: rgba(231, 76, 60, 0.1) !important;
+            border-left: 3px solid var(--rojo-negativo);
+        }
+        
+        .empate {
+            background-color: rgba(52, 152, 219, 0.1) !important;
+            border-left: 3px solid var(--azul-secundario);
+        }
+        
+        .habi-img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+        
+        .accordion-button {
+            font-weight: 600;
+            color: var(--azul-oscuro);
+        }
+        
+        .accordion-button:not(.collapsed) {
+            background-color: var(--azul-claro);
+            color: var(--azul-oscuro);
+        }
+        
+        .back-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--azul-primario);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .back-button:hover {
+            background-color: var(--azul-intenso);
+            transform: translateY(-3px);
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .seccion {
+                padding: 60px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="fas fa-globe-europe me-2"></i>Habi España
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="pagina2.html">Indicadores</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="#internacionalizacion">Estrategia</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header id="inicio" class="d-flex align-items-center" style="background: linear-gradient(rgba(10, 36, 99, 0.8), rgba(10, 36, 99, 0.8)), url('https://images.unsplash.com/photo-1538964173425-93884d739596?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2038&q=80') center/cover no-repeat; height: 60vh; min-height: 400px;">
+        <div class="container text-center text-white">
+            <h1 class="display-3 fw-bold mb-4">Estrategia de Internacionalización</h1>
+            <p class="lead fs-4 mb-5">Expansión de Habi al mercado español</p>
+        </div>
+    </header>
+
+    <!-- Sección de Internacionalización -->
+    <section id="internacionalizacion" class="seccion seccion-azul">
+        <div class="container">
+            <h2 class="text-center seccion-titulo">Estrategia de Internacionalización</h2>
+            
+            <!-- Selección del País -->
+            <div class="card-estilizada">
+                <h3 class="text-center"><i class="fas fa-globe-europe me-2"></i> Selección de España como Mercado Objetivo</h3>
+                
+                <div class="row mt-4">
+                    <div class="col-lg-10 mx-auto">
+                        <p>España supera a Portugal en <strong>cuatro de los seis entornos analizados</strong>, destacando en aspectos críticos como cultura, tecnología y comercio internacional. Su estabilidad política, infraestructura digital y acceso a mercados globales la convierten en la opción óptima para que HABI se internacionalice desde Colombia.</p>
+                        
+                        <div class="table-responsive mt-4">
+                            <table class="table-comparativa">
+                                <thead>
+                                    <tr>
+                                        <th>Entorno</th>
+                                        <th>España</th>
+                                        <th>Portugal</th>
+                                        <th>Ventaja</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="ventaja-portugal">
+                                        <td><strong>Económico</strong></td>
+                                        <td>6.45%</td>
+                                        <td>9%</td>
+                                        <td>Portugal</td>
+                                    </tr>
+                                    <tr class="ventaja-espana">
+                                        <td><strong>Cultural</strong></td>
+                                        <td>6.83%</td>
+                                        <td>5.6%</td>
+                                        <td>España</td>
+                                    </tr>
+                                    <tr class="empate">
+                                        <td><strong>Político/Legal</strong></td>
+                                        <td>7.5%</td>
+                                        <td>7.5%</td>
+                                        <td>Empate</td>
+                                    </tr>
+                                    <tr class="ventaja-espana">
+                                        <td><strong>Tecnológico</strong></td>
+                                        <td>13.75%</td>
+                                        <td>11.25%</td>
+                                        <td>España</td>
+                                    </tr>
+                                    <tr class="ventaja-espana">
+                                        <td><strong>Comercio Internacional</strong></td>
+                                        <td>8.74%</td>
+                                        <td>5.5%</td>
+                                        <td>España</td>
+                                    </tr>
+                                    <tr class="ventaja-portugal">
+                                        <td><strong>Inversión Extranjera</strong></td>
+                                        <td>8%</td>
+                                        <td>11%</td>
+                                        <td>Portugal</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>TOTAL</strong></td>
+                                        <td><strong>51.28%</strong></td>
+                                        <td><strong>49.86%</strong></td>
+                                        <td><strong>España</strong></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="row mt-4">
+                            <div class="col-md-6">
+                                <div class="p-4 rounded" style="background-color: rgba(46, 204, 113, 0.1);">
+                                    <h4><i class="fas fa-check-circle me-2" style="color: var(--verde-positivo);"></i> Ventajas de España:</h4>
+                                    <ul class="mt-3">
+                                        <li>Mayor nivel de alfabetización y educación (80% vs 63%)</li>
+                                        <li>Mejores indicadores demográficos (75% vs 55%)</li>
+                                        <li>Superior en acceso a tecnología (55% vs 45%)</li>
+                                        <li>Más usuarios de internet (60% vs 40%)</li>
+                                        <li>Mejores acuerdos comerciales (60% vs 40%)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-4 rounded" style="background-color: rgba(231, 76, 60, 0.1);">
+                                    <h4><i class="fas fa-exclamation-triangle me-2" style="color: var(--rojo-negativo);"></i> Consideraciones:</h4>
+                                    <ul class="mt-3">
+                                        <li>Portugal tiene mejores calificaciones en inflación (70% vs 35%)</li>
+                                        <li>Portugal con mejores tasas de interés (70% vs 40%)</li>
+                                        <li>Portugal con mayor flujo de inversión extranjera (55% vs 40%)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Espacio para gráfico comparativo -->
+                        <div class="text-center mt-4">
+                            <img src="https://via.placeholder.com/800x400?text=Gráfico+Comparativo+España-Portugal" alt="Comparación España vs Portugal" class="habi-img">
+                            <p class="text-muted"><em>Espacio para gráfico comparativo entre España y Portugal</em></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Estrategia de Internacionalización -->
+            <div class="card-estilizada">
+                <h3 class="text-center"><i class="fas fa-chess-knight me-2"></i> Estrategia de Internacionalización</h3>
+                
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <div class="p-4 h-100 rounded" style="background-color: rgba(59, 130, 246, 0.1);">
+                            <h4><i class="fas fa-sign-in-alt me-2"></i> Modo de Entrada:</h4>
+                            <p><strong>Exportación Directa con Adaptación del Producto:</strong> HABI optará por una exportación directa con adaptación parcial del servicio al mercado español. Este modo permite controlar el proceso de comercialización y ajustar la plataforma a las normativas locales (ej. GDPR) y preferencias culturales, manteniendo la identidad central de la marca.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="p-4 h-100 rounded" style="background-color: rgba(59, 130, 246, 0.1);">
+                            <h4><i class="fas fa-bullseye me-2"></i> Estrategia Glocal:</h4>
+                            <p>Combinar estándares globales con ajustes locales:</p>
+                            <ul>
+                                <li>Adaptación del servicio a normativas españolas</li>
+                                <li>Enfoque en ciudades clave (Madrid y Barcelona)</li>
+                                <li>Alianzas estratégicas con actores locales</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mt-4">
+                    <div class="col-md-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title text-center"><i class="fas fa-cogs me-2" style="color: var(--azul-primario);"></i> Adaptación del Servicio</h5>
+                                <ul class="mt-3">
+                                    <li>Integración con registros públicos digitales españoles (Catastro)</li>
+                                    <li>Traducción y localización de contenidos</li>
+                                    <li>Cumplimiento del GDPR para protección de datos</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title text-center"><i class="fas fa-city me-2" style="color: var(--azul-primario);"></i> Enfoque en Ciudades Clave</h5>
+                                <ul class="mt-3">
+                                    <li>Priorización de Madrid y Barcelona</li>
+                                    <li>81.5% de población urbana</li>
+                                    <li>Alta penetración digital (93% usuarios de internet)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title text-center"><i class="fas fa-handshake me-2" style="color: var(--azul-primario);"></i> Alianzas Estratégicas</h5>
+                                <ul class="mt-3">
+                                    <li>Colaboración con plataformas locales como Idealista o Fotocasa</li>
+                                    <li>Acuerdos con agentes inmobiliarios</li>
+                                    <li>Alianzas con instituciones financieras</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Plan de Marketing -->
+            <div class="card-estilizada">
+                <h3 class="text-center"><i class="fas fa-chart-line me-2"></i> Plan de Marketing</h3>
+                
+                <div class="accordion mt-4" id="marketingAccordion">
+                    <!-- Estrategia 1 -->
+                    <div class="accordion-item border-0 mb-3">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#estrategia1">
+                                <i class="fas fa-door-open me-2"></i> Estrategia de Entrada al Mercado
+                            </button>
+                        </h2>
+                        <div id="estrategia1" class="accordion-collapse collapse show" data-bs-parent="#marketingAccordion">
+                            <div class="accordion-body">
+                                <p>Establecer acuerdos con agentes inmobiliarios locales, portales ya establecidos, instituciones financieras y otros actores relevantes en cada mercado para promocionar la plataforma y generar leads.</p>
+                                <p><strong>Ventaja:</strong> Permite un acceso más rápido al mercado local, aprovechando la red de contactos y la credibilidad de los socios locales.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Estrategia 2 -->
+                    <div class="accordion-item border-0 mb-3">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#estrategia2">
+                                <i class="fas fa-ad me-2"></i> Marketing Digital de Alto Rendimiento
+                            </button>
+                        </h2>
+                        <div id="estrategia2" class="accordion-collapse collapse" data-bs-parent="#marketingAccordion">
+                            <div class="accordion-body">
+                                <p>Optimizar la plataforma para los motores de búsqueda en cada mercado objetivo (SEO) utilizando palabras clave relevantes en el idioma local. Complementar con campañas de publicidad online pagada (SEM) segmentadas geográficamente y por intereses.</p>
+                                <p><strong>Ventaja:</strong> Fundamental para la visibilidad online de una plataforma digital y permite llegar directamente a los potenciales compradores y vendedores.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Estrategia 3 -->
+                    <div class="accordion-item border-0 mb-3">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#estrategia3">
+                                <i class="fas fa-users me-2"></i> Segmentación del Mercado
+                            </button>
+                        </h2>
+                        <div id="estrategia3" class="accordion-collapse collapse" data-bs-parent="#marketingAccordion">
+                            <div class="accordion-body">
+                                <p><strong>Público objetivo:</strong> Jóvenes con sueño de conseguir casa propia y buscar comodidad a su familia en un rango de edad de 25 a 45 años, que tengan ingresos constantes de mínimo 1.5 salarios mínimos legales vigentes, que vivan residencias en recintos urbanos preferiblemente en Barcelona y Madrid.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Estrategia 4 -->
+                    <div class="accordion-item border-0 mb-3">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#estrategia4">
+                                <i class="fas fa-box-open me-2"></i> Características del Producto/Servicio
+                            </button>
+                        </h2>
+                        <div id="estrategia4" class="accordion-collapse collapse" data-bs-parent="#marketingAccordion">
+                            <div class="accordion-body">
+                                <ul>
+                                    <li><strong>Compra directa de viviendas:</strong> Evalúan tu propiedad y si cumples ciertos criterios, te hacen una oferta rápida y justa.</li>
+                                    <li><strong>Venta de inmuebles:</strong> Publican, promueven y gestionan la venta de tu propiedad con acompañamiento integral.</li>
+                                    <li><strong>Valoración de inmuebles:</strong> Tiene una herramienta llamada "habi metro cuadrado" que ayuda a conocer el valor estimado de tu propiedad.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Estrategia 5 -->
+                    <div class="accordion-item border-0 mb-3">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#estrategia5">
+                                <i class="fas fa-truck me-2"></i> Canales de Distribución
+                            </button>
+                        </h2>
+                        <div id="estrategia5" class="accordion-collapse collapse" data-bs-parent="#marketingAccordion">
+                            <div class="accordion-body">
+                                <p>Para Habi, la selección de canales de distribución en España debe considerar los canales más efectivos para penetrar el mercado inmobiliario español:</p>
+                                <ul>
+                                    <li><strong>Distribuidores locales:</strong> Agentes inmobiliarios con un fuerte conocimiento del mercado regional.</li>
+                                    <li><strong>Venta directa:</strong> Plataforma digital robusta que permita a los consumidores interactuar directamente con las propiedades.</li>
+                                    <li><strong>E-commerce:</strong> Aprovechando el crecimiento del comercio electrónico en España.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Estrategia 6 -->
+                    <div class="accordion-item border-0 mb-3">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#estrategia6">
+                                <i class="fas fa-tag me-2"></i> Estrategia de Precios
+                            </button>
+                        </h2>
+                        <div id="estrategia6" class="accordion-collapse collapse" data-bs-parent="#marketingAccordion">
+                            <div class="accordion-body">
+                                <p>La fijación del precio de los servicios de Habi en el mercado español debe basarse en:</p>
+                                <ul>
+                                    <li><strong>Costos:</strong> Gastos operativos de adquisición, remodelación y comercialización de propiedades.</li>
+                                    <li><strong>Competencia:</strong> Estrategia de precios de skimming, ingresando con precios competitivos para captar rápidamente cuota de mercado.</li>
+                                    <li><strong>Valor percibido:</strong> Educar al consumidor sobre los beneficios de utilizar una plataforma integral.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Estrategia 7 -->
+                    <div class="accordion-item border-0 mb-3">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#estrategia7">
+                                <i class="fas fa-chart-bar me-2"></i> Análisis de Clientes y Competencia
+                            </button>
+                        </h2>
+                        <div id="estrategia7" class="accordion-collapse collapse" data-bs-parent="#marketingAccordion">
+                            <div class="accordion-body">
+                                <p><strong>Clientes potenciales:</strong></p>
+                                <ul>
+                                    <li>Compradores primerizos</li>
+                                    <li>Inversionistas extranjeros</li>
+                                    <li>Propietarios que buscan vender rápidamente sus inmuebles</li>
+                                </ul>
+                                <p><strong>Ventaja competitiva:</strong> Innovación tecnológica que ofrece un proceso digitalizado y ágil, calidad del servicio al cliente, y relaciones estratégicas con agentes locales.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Test de Salida -->
+            <div class="card-estilizada">
+                <h3 class="text-center"><i class="fas fa-graduation-cap me-2"></i> Resultados de Aprendizaje</h3>
+                
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <div class="p-4 h-100 rounded" style="background-color: rgba(46, 204, 113, 0.1);">
+                            <h4><i class="fas fa-user-graduate me-2"></i> Josué Cantillo</h4>
+                            <p>A comparación con el test de entrada se pudo evidenciar que hubo un descenso de 10%, lo que indica que se disminuyó un poco los conocimientos obtenidos a lo largo del núcleo lo cual puede deberse a errores, pero mantiene un cierto porcentaje de conocimientos que se mantiene en ambas pruebas.</p>
+                            <!-- Espacio para imagen -->
+                            <img src="https://via.placeholder.com/400x200?text=Gráfico+Josué+Cantillo" alt="Resultados Josué Cantillo" class="habi-img">
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="p-4 h-100 rounded" style="background-color: rgba(46, 204, 113, 0.1);">
+                            <h4><i class="fas fa-user-graduate me-2"></i> Jair Caro</h4>
+                            <p>Al comparar mi test de entrada con el test de salida, puedo ver claramente que este proceso de aprendizaje en el núcleo de internacionalización de empresas ha sido muy enriquecedor. He adquirido conocimientos valiosos sobre los aspectos clave que debo considerar al internacionalizar una empresa.</p>
+                            <!-- Espacio para imagen -->
+                            <img src="https://via.placeholder.com/400x200?text=Gráfico+Jair+Caro" alt="Resultados Jair Caro" class="habi-img">
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 mt-4">
+                        <div class="p-4 h-100 rounded" style="background-color: rgba(46, 204, 113, 0.1);">
+                            <h4><i class="fas fa-user-graduate me-2"></i> Denilson Chamorro</h4>
+                            <p>Al analizar mi prueba inicial, noté una falta de conocimiento en los procesos de internacionalización. Sin embargo, al adentrarme en este mundo de los negocios y al completar este enriquecedor módulo, he experimentado una transformación. Siento una creciente confianza en mi capacidad para tomar decisiones estratégicas.</p>
+                            <!-- Espacio para imagen -->
+                            <img src="https://via.placeholder.com/400x200?text=Gráfico+Denilson+Chamorro" alt="Resultados Denilson Chamorro" class="habi-img">
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 mt-4">
+                        <div class="p-4 h-100 rounded" style="background-color: rgba(46, 204, 113, 0.1);">
+                            <h4><i class="fas fa-user-graduate me-2"></i> Santiago Vergara</h4>
+                            <p>Al comparar mis resultados de la prueba de entrada con los del test de salida, noto una mejora significativa en mi rendimiento. Esto demuestra que logré fortalecer mis conocimientos y habilidades a lo largo del proceso formativo. Aunque en el test de salida empleé mucho más tiempo, esto indica que fui más detallado, cuidadoso y reflexivo en mis respuestas.</p>
+                            <!-- Espacio para imagen -->
+                            <img src="https://via.placeholder.com/400x200?text=Gráfico+Santiago+Vergara" alt="Resultados Santiago Vergara" class="habi-img">
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 mx-auto mt-4">
+                        <div class="p-4 h-100 rounded" style="background-color: rgba(46, 204, 113, 0.1);">
+                            <h4><i class="fas fa-user-graduate me-2"></i> Jesús Ortiz</h4>
+                            <p>Al comparar los resultados tanto del test entrada, como el test de salida, pude notar que hubo un gran cambio. En el test de entrada obtuve un porcentaje de 83,2% lo que significa que fue menor a lo que saqué en el test de salida que fue un 96,6%. Esta diferencia refleja el incremento que tuve a la hora tener claro los temas dados en la clase.</p>
+                            <!-- Espacio para imagen -->
+                            <img src="https://via.placeholder.com/400x200?text=Gráfico+Jesús+Ortiz" alt="Resultados Jesús Ortiz" class="habi-img">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-4 p-4 rounded" style="background-color: rgba(59, 130, 246, 0.1);">
+                    <h4 class="text-center"><i class="fas fa-users me-2"></i> Resultados del Grupo en General</h4>
+                    <p>Los tests de salida evidenciaron un avance notable en el dominio de los conceptos de internacionalización, aunque con matices. Jesús Ortiz destacó con una mejora del 13.4% (83.2% a 96.6%), reflejando un dominio estratégico superior. Santiago Vergara registró una mejora significativa, atribuida a un enfoque más detallado y reflexivo en sus respuestas. Denilson Chamorro transformó su desconocimiento inicial en confianza para la toma de decisiones estratégicas, mientras Jair Caro consolidó su comprensión teórica y práctica. Josué Cantillo, aunque experimentó un descenso del 10%, mantuvo un núcleo de conocimientos clave.</p>
+                </div>
+            </div>
+            
+            <!-- Video -->
+            <div class="card-estilizada">
+                <h3 class="text-center"><i class="fas fa-video me-2"></i> Presentación Multimedia</h3>
+                
+                <div class="ratio ratio-16x9 mt-4">
+                    <iframe src="https://www.youtube.com/embed/placeholder" title="Video presentación HABI" allowfullscreen></iframe>
+                </div>
+                <p class="text-center mt-2"><em>Espacio para video de presentación</em></p>
+            </div>
+            
+            <!-- Conclusiones -->
+            <div class="card-estilizada">
+                <h3 class="text-center"><i class="fas fa-check-circle me-2"></i> Conclusiones</h3>
+                
+                <div class="mt-4">
+                    <p>El análisis de los indicadores macroeconómicos clave evidencia que España representa una oportunidad estratégica para la internacionalización de Habi, especialmente en ciudades como Madrid y Barcelona, donde la demanda de vivienda es alta. El crecimiento sostenido del PIB tras la pandemia refleja una economía en estabilización favorable para la inversión.</p>
+                    
+                    <p>No obstante, el entorno presenta retos como el encarecimiento del crédito debido al alza del Euribor y la volatilidad del tipo de cambio, factores que impactan directamente en la financiación y rentabilidad. En ese sentido, Habi debe implementar estrategias como alianzas bancarias, precios competitivos y coberturas cambiarias para mitigar riesgos.</p>
+                    
+                    <p>En el análisis de macroentornos descubrimos que España representa un mercado estratégico para la internacionalización de HABI, gracias a su elevada digitalización, estabilidad jurídica y acceso a incentivos públicos, particularmente en entornos urbanos como Madrid y Barcelona.</p>
+                    
+                    <p>La internacionalización de HABI en España se fundamenta en un análisis multidimensional que prioriza su estabilidad económica, ventajas culturales, tecnológicas y de comercio internacional. La estrategia de entrada se articula bajo una adaptación glocal, combinando estándares globales con ajustes locales.</p>
+                </div>
+            </div>
+            
+            <!-- Referencias -->
+            <div class="card-estilizada">
+                <h3 class="text-center"><i class="fas fa-book me-2"></i> Referencias</h3>
+                
+                <div class="mt-4">
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-external-link-alt me-2"></i> Banco Mundial. (s. f.). <em>GDP growth (annual %) - Colombia</em>. World Bank Open Data.</li>
+                        <li><i class="fas fa-external-link-alt me-2"></i> Banco Mundial. (s. f.). <em>GDP growth (annual %) - Spain</em>. World Bank Open Data.</li>
+                        <li><i class="fas fa-external-link-alt me-2"></i> DANE. (s. f.). <em>Mercado laboral</em>.</li>
+                        <li><i class="fas fa-external-link-alt me-2"></i> European Central Bank. (2023, 12 de junio). <em>Euro foreign exchange reference rates</em>.</li>
+                        <li><i class="fas fa-external-link-alt me-2"></i> European Central Bank. (s. f.). <em>Euribor historical rates</em>.</li>
+                        <li><i class="fas fa-external-link-alt me-2"></i
